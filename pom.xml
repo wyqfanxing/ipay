@@ -76,21 +76,21 @@
 							<dir>${jmeter.result.jtl.dir}</dir>
 							<stylesheet>src\test\resources\jmeter-results-detail-report_21.xsl</stylesheet>
 							<outputDir>${jmeter.result.html.dir}</outputDir>
-							<fileMappers>
+							<!-- <fileMappers>
 								<fileMapper
 									implementation="org.codehaus.plexus.components.io.filemappers.FileExtensionMapper">
 									<targetExtension>html</targetExtension>
 								</fileMapper>
-							</fileMappers>
+							</fileMappers> -->
 						</transformationSet>
 						<transformationSet>
 							<dir>${jmeter.result.jtl.dir}</dir>
 							<stylesheet>src\test\resources\jmeter.results.shanhe.me.xsl</stylesheet>
 							<outputDir>${jmeter.result.html.dir1}</outputDir>
-							<fileMapper
+							<!--  <fileMapper
 								implementation="org.codehaus.plexus.components.io.filemappers.FileExtensionMapper">
 								<targetExtension>html</targetExtension>
-							</fileMapper>
+							</fileMapper>-->
 						</transformationSet>
 					</transformationSets>
 				</configuration>

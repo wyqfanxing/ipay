@@ -17,7 +17,20 @@
 		<jmeter.result.html1.dir1>${project.build.directory}\jmeter\html1</jmeter.result.html1.dir1>
 		<ReportName>TestReport</ReportName>
 	</properties>
-
+	<pluginRepositories>
+		<pluginRepository>
+			<id>Codehaus repository</id>
+			<url>http://repository.codehaus.org/</url>
+			<releases>
+				<enabled>true</enabled>
+				<updatePolicy>always</updatePolicy>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+				<updatePolicy>always</updatePolicy>
+			</snapshots>
+		</pluginRepository>
+	</pluginRepositories>
 
 	<build>
 		<plugins>
@@ -49,38 +62,40 @@
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>xml-maven-plugin</artifactId>
 				<version>1.0.1</version>
-                <executions>
-                  <execution>
-                    <phase>verify</phase>
-                    <goals>
-                       <goal>transform</goal>
-                    </goals>
-                  </execution>
-                </executions>
-                <configuration>
-                   <transformationSets>
-                     <transformationSet>
-                       <dir>${jmeter.result.jtl.dir}</dir>
-                       <stylesheet>src\test\resources\jmeter-results-detail-report_21.xsl</stylesheet>
-                       <outputDir>${jmeter.result.html.dir}</outputDir>
-                       <fileMappers>
-                         <fileMapper implementation="org.codehaus.plexus.components.io.filemappers.FileExtensionMapper">
-                           <targetExtension>html</targetExtension>
-                         </fileMapper>
-                       </fileMappers>
-                     </transformationSet>
-                     <transformationSet>
-                        <dir>${jmeter.result.jtl.dir}</dir>
-                        <stylesheet>src\test\resources\jmeter.results.shanhe.me.xsl</stylesheet>
-                        <outputDir>${jmeter.result.html.dir1}</outputDir>
-                        <fileMapper implementation="org.codehaus.plexus.components.io.filemappers.FileExtensionMapper">
-                           <targetExtension>html</targetExtension>
-                         </fileMapper>
-                     </transformationSet>
-                   </transformationSets>
-                </configuration>
+				<executions>
+					<execution>
+						<phase>verify</phase>
+						<goals>
+							<goal>transform</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<transformationSets>
+						<transformationSet>
+							<dir>${jmeter.result.jtl.dir}</dir>
+							<stylesheet>src\test\resources\jmeter-results-detail-report_21.xsl</stylesheet>
+							<outputDir>${jmeter.result.html.dir}</outputDir>
+							<fileMappers>
+								<fileMapper
+									implementation="org.codehaus.plexus.components.io.filemappers.FileExtensionMapper">
+									<targetExtension>html</targetExtension>
+								</fileMapper>
+							</fileMappers>
+						</transformationSet>
+						<transformationSet>
+							<dir>${jmeter.result.jtl.dir}</dir>
+							<stylesheet>src\test\resources\jmeter.results.shanhe.me.xsl</stylesheet>
+							<outputDir>${jmeter.result.html.dir1}</outputDir>
+							<fileMapper
+								implementation="org.codehaus.plexus.components.io.filemappers.FileExtensionMapper">
+								<targetExtension>html</targetExtension>
+							</fileMapper>
+						</transformationSet>
+					</transformationSets>
+				</configuration>
 			</plugin>
-						<plugin>
+			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jar-plugin</artifactId>
 				<configuration>
@@ -92,6 +107,25 @@
 						</manifest>
 					</archive>
 				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>copy-dependencies</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.build.directory}/jmeter/lib</outputDirectory>
+							<overWriteReleases>false</overWriteReleases>
+							<overWriteSnapshots>false</overWriteSnapshots>
+							<overWriteIfNewer>true</overWriteIfNewer>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>

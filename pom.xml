@@ -48,7 +48,7 @@
 				<!-- https://mvnrepository.com/artifact/org.codehaus.mojo/xml-maven-plugin -->
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>xml-maven-plugin</artifactId>
-				<version>1.0-beta-3</version>
+				<version>1.0.1</version>
                 <executions>
                   <execution>
                     <phase>verify</phase>
@@ -71,7 +71,7 @@
                      </transformationSet>
                      <transformationSet>
                         <dir>${jmeter.result.jtl.dir}</dir>
-                        <stylesheet>src\test\resources\jmeter.results.shnhe.me.xsl</stylesheet>
+                        <stylesheet>src\test\resources\jmeter.results.shanhe.me.xsl</stylesheet>
                         <outputDir>${jmeter.result.html.dir1}</outputDir>
                         <fileMapper implementation="org.codehaus.plexus.components.io.filemappers.FileExtensionMapper">
                            <targetExtension>html</targetExtension>
@@ -79,6 +79,19 @@
                      </transformationSet>
                    </transformationSets>
                 </configuration>
+			</plugin>
+						<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<archive>
+						<manifest>
+							<addClasspath>true</addClasspath>
+							<classpathPrefix>lib/</classpathPrefix>
+							<mainClass>theMainClass</mainClass>
+						</manifest>
+					</archive>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
